@@ -72,28 +72,32 @@ def affine_decrypt(cipher_text, a, b):
     return ''.join(plain_text)  # Return the joined plain text
 
 def main():
-    choice = input("Affine encryption or decryption? (type 'encryption' or 'decryption'): \n").strip().lower()
+    while True:  # Loop to give the user another chance
+        choice = input("Affine encryption or decryption? (type 'encryption' or 'decryption'): \n").strip().lower()
 
-    if choice == "encryption":
-        plain_text = input("Enter your plain text: ").strip().lower()  # Accept lower case for consistency
-        a, b = get_cipher_keys()  # Get and validate the cipher keys
-        try:
-            encrypted_text = affine_encrypt(plain_text, a, b)  # Encrypt the plain text
-            print("Encrypted text:", encrypted_text)  # Output the encrypted text
-        except ValueError as e:
-            print(e)  # Handle error if keys are invalid
+        if choice == "encryption":
+            plain_text = input("Enter your plain text: ").strip().lower() 
+            a, b = get_cipher_keys()  # Get and validate the cipher keys
+            try:
+                encrypted_text = affine_encrypt(plain_text, a, b)  # Encrypt the plain text
+                print("Encrypted text:", encrypted_text)  # Output the encrypted text
+            except ValueError as e:
+                print(e)  # Handle error if keys are invalid
+            break  # Exit the loop after successful encryption
 
-    elif choice == "decryption":
-        cipher_text = input("Enter your cipher text: ").strip().lower()  # Accept lower case for consistency
-        a, b = get_cipher_keys()  # Get and validate the cipher keys
-        try:
-            decrypted_text = affine_decrypt(cipher_text, a, b)  # Decrypt the cipher text
-            print("Decrypted text:", decrypted_text)  # Output the decrypted text
-        except ValueError as e:
-            print(e)  # Handle error if keys are invalid
+        elif choice == "decryption":
+            cipher_text = input("Enter your cipher text: ").strip().lower() 
+            a, b = get_cipher_keys()  # Get and validate the cipher keys
+            try:
+                decrypted_text = affine_decrypt(cipher_text, a, b)  # Decrypt the cipher text
+                print("Decrypted text:", decrypted_text)  # Output the decrypted text
+            except ValueError as e:
+                print(e)  # Handle error if keys are invalid
+            break  # Exit the loop after successful decryption
 
-    else:
-        print("Invalid choice. Please type 'encryption' or 'decryption'.")
+        else:
+            print("Invalid choice. Please type 'encryption' or 'decryption'. Try again.")  # Prompt again
+
 
 if __name__ == "__main__":
     main()  # Run the main function
